@@ -1,0 +1,934 @@
+<html><head><base href="https://github.com/"><title>AgriAssist - Aide aux Travaux Champ&#xea;tres</title>
+<meta charset="UTF-8">
+<style>
+:root {
+  --primary: #2e7d32;
+  --secondary: #795548;
+  --light: #f1f8e9;
+}
+
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background: var(--light);
+}
+
+nav {
+  background: var(--primary);
+  padding: 1rem;
+  color: white;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 1rem;
+  padding: 0.5rem;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+nav ul li a[onclick*="home"] {
+  background-color: #4CAF50; /* Fresh grass green */
+}
+
+nav ul li a[onclick*="calendar"] {
+  background-color: #8BC34A; /* Light green */
+}
+
+nav ul li a[onclick*="advice"] {
+  background-color: #689F38; /* Forest green */
+}
+
+nav ul li a[onclick*="tools"] {
+  background-color: #33691E; /* Dark green */
+}
+
+nav ul li a[onclick*="services"] {
+  background-color: #558B2F; /* Olive green */
+}
+
+nav ul li a[onclick*="contact"] {
+  background-color: #1B5E20; /* Deep forest green */
+}
+
+/* Hover effects */
+nav ul li a:hover {
+  background-color: #81C784; /* Light mint green */
+  opacity: 0.9;
+}
+
+.hero {
+  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+              url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-4.0.3');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.feature-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.feature-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.calendar {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 2rem;
+}
+
+.weather-widget {
+  background: var(--primary);
+  color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 2rem;
+  background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+                    url('https://images.unsplash.com/photo-1592210454359-9043f067919b?ixlib=rb-4.0.3');
+  background-size: cover;
+  background-position: center;
+}
+
+footer {
+  background: var(--secondary);
+  color: white;
+  padding: 2rem;
+  text-align: center;
+}
+
+.tool-icon {
+  width: 48px;
+  height: 48px;
+  fill: var(--primary);
+}
+
+.page-content {
+  padding: 2rem;
+  background: white;
+  margin: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: none;
+}
+
+.page-content.active {
+  display: block;
+}
+
+.tool-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.tool-item {
+  background: var(--light);
+  padding: 1rem;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.contact-form {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.contact-form button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.crop-calendar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.season {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.season h4 {
+  color: var(--primary);
+  margin-top: 0;
+  border-bottom: 2px solid var(--light);
+  padding-bottom: 0.5rem;
+}
+
+.spring { border-left: 4px solid #4CAF50; }
+.summer { border-left: 4px solid #FF9800; }
+.autumn { border-left: 4px solid #795548; }
+.winter { border-left: 4px solid #90A4AE; }
+
+.crop-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.season-icon {
+  width: 48px;
+  height: 48px;
+  fill: var(--primary);
+  flex-shrink: 0;
+}
+
+.advice-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.advice-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.advice-image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.advice-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.advice-steps {
+  background: var(--light);
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.advice-steps li {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.advice-tips {
+  background: #fff3e0;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.tool-details {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.tool-image-wrapper {
+  position: relative;
+  height: 200px;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.tool-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tool-specs {
+  background: var(--light);
+  padding: 1rem;
+  border-radius: 4px;
+  margin: 1rem 0;
+}
+
+.tool-specs li {
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.tool-usage {
+  background: #fff3e0;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-top: 1rem;
+}
+
+.service-details {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+}
+
+.service-details li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--light);
+}
+
+.service-details li:last-child {
+  border-bottom: none;
+}
+
+.calendar-details {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-top: 1rem;
+}
+
+.calendar-section {
+  margin-bottom: 1.5rem;
+}
+
+.calendar-section h4 {
+  color: var(--primary);
+  border-bottom: 2px solid var(--light);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.calendar-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.calendar-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: var(--light);
+  border-radius: 4px;
+}
+
+.task-icon, .crop-icon, .status-icon {
+  font-size: 1.2rem;
+}
+
+.status-box {
+  background: #e8f5e9;
+  padding: 1rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.status-box p {
+  margin: 0;
+  color: var(--primary);
+  font-weight: 500;
+}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav>
+  <ul>
+    <li><a href="#" onclick="showSection(&apos;home&apos;)">Accueil</a></li>
+    <li><a href="#" onclick="showSection(&apos;calendar&apos;)">Calendrier Agricole</a></li>
+    <li><a href="#" onclick="showSection(&apos;advice&apos;)">Conseils</a></li>
+    <li><a href="#" onclick="showSection(&apos;tools&apos;)">Outils</a></li>
+    <li><a href="#" onclick="showSection(&apos;services&apos;)">Services</a></li>
+    <li><a href="#" onclick="showSection(&apos;contact&apos;)">Contact</a></li>
+  </ul>
+</nav>
+
+<div id="home" class="page-content active">
+  <div class="hero">
+    <h1>AgriAssist</h1>
+    <h2>Votre compagnon pour les travaux champ&#xea;tres</h2>
+    <p>Optimisez votre production agricole avec nos outils et conseils</p>
+  </div>
+  <div class="features">
+    <div class="feature-card">
+      <img src="https://images.unsplash.com/photo-1560693225-b8507d6f3aa9?ixlib=rb-4.0.3" alt="Plantation" class="feature-image">
+      <svg class="tool-icon" viewBox="0 0 24 24">
+        <path d="M20,10C22,13 17,22 15,22C13,22 13,21 12,21C11,21 11,22 9,22C7,22 2,13 4,10C6,7 9,7 11,8V5C5.38,8.07 4.11,3.78 4.11,3.78C4.11,3.78 6.77,0.19 11,5V3H13V8C15,7 18,7 20,10Z"/>
+      </svg>
+      <h3>Calendrier des Cultures</h3>
+      <p>Planifiez vos semis et r&#xe9;coltes selon les saisons</p>
+    </div>
+    
+    <div class="feature-card">
+      <img src="https://images.unsplash.com/photo-1589923188900-85dae523342b?ixlib=rb-4.0.3" alt="Conseils agricoles" class="feature-image">
+      <svg class="tool-icon" viewBox="0 0 24 24">
+        <path d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M13,2L19,9H13V22H11V9H5L12,2M11,2.06C9.05,2.25 7.19,3 5.67,4.26L7.1,5.74C8.22,4.84 9.57,4.26 11,4.06V2.06M4.26,5.67C3,7.19 2.25,9.04 2.05,11H4.05C4.24,9.58 4.8,8.23 5.69,7.1L4.26,5.67M2.06,13C2.26,14.96 3.03,16.81 4.27,18.33L5.69,16.9C4.81,15.77 4.24,14.42 4.06,13H2.06M7.1,18.37L5.67,19.74C7.18,21 9.04,21.79 11,22V20C9.58,19.82 8.23,19.25 7.1,18.37M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z"/>
+      </svg>
+      <h3>Conseils Techniques</h3>
+      <p>D&#xe9;couvrez les meilleures pratiques agricoles</p>
+    </div>
+    
+    <div class="feature-card">
+      <img src="https://images.unsplash.com/photo-1601134467661-3d775b999c8b?ixlib=rb-4.0.3" alt="M&#xe9;t&#xe9;o agricole" class="feature-image">
+      <svg class="tool-icon" viewBox="0 0 24 24">
+        <path d="M13,2.03V2.05L13,4.05C17.39,4.59 20.5,8.58 19.96,12.97C19.5,16.61 16.64,19.5 13,19.93V21.93C18.5,21.38 22.5,16.5 21.95,11C21.5,6.25 17.73,2.5 13,2.03M11,2.06C9.05,2.25 7.19,3 5.67,4.26L7.1,5.74C8.22,4.84 9.57,4.26 11,4.06V2.06M4.26,5.67C3,7.19 2.25,9.04 2.05,11H4.05C4.24,9.58 4.8,8.23 5.69,7.1L4.26,5.67M2.06,13C2.26,14.96 3.03,16.81 4.27,18.33L5.69,16.9C4.81,15.77 4.24,14.42 4.06,13H2.06M7.1,18.37L5.67,19.74C7.18,21 9.04,21.79 11,22V20C9.58,19.82 8.23,19.25 7.1,18.37M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z"/>
+      </svg>
+      <h3>Suivi M&#xe9;t&#xe9;o</h3>
+      <p>Consultez les pr&#xe9;visions m&#xe9;t&#xe9;o pour planifier vos activit&#xe9;s</p>
+    </div>
+  </div>
+  <div class="calendar">
+    <h2>Calendrier Agricole</h2>
+    <div id="calendar-content">
+      <!-- Le calendrier sera généré par JavaScript -->
+    </div>
+  </div>
+  <div class="weather-widget">
+    <h2>M&#xe9;t&#xe9;o Locale</h2>
+    <div id="weather-content">
+      <!-- Les données météo seront mises à jour par JavaScript -->
+    </div>
+  </div>
+</div>
+
+<div id="calendar" class="page-content">
+  <h2>Calendrier Agricole D&#xe9;tail&#xe9;</h2>
+  <div class="calendar-details">
+    <h3>Planning Annuel des Cultures</h3>
+    
+    <div class="crop-calendar">
+      <div class="season spring">
+        <h4>Printemps (Mars - Mai)</h4>
+        <div class="crop-item">
+          <svg class="season-icon" viewBox="0 0 24 24">
+            <path d="M12,3.5L7.5,8H11V20H13V8H16.5L12,3.5M12,2L19,9H13V22H11V9H5L12,2Z"/>
+          </svg>
+          <ul>
+            <li>Mars: Pr&#xe9;paration des sols et semis pr&#xe9;coces (carottes, laitues)</li>
+            <li>Avril: Plantation des pommes de terre et semis des haricots</li>
+            <li>Mai: Repiquage des tomates et plantation du ma&#xef;s</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="season summer">
+        <h4>&#xc9;t&#xe9; (Juin - Ao&#xfb;t)</h4>
+        <div class="crop-item">
+          <svg class="season-icon" viewBox="0 0 24 24">
+            <path d="M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z"/>
+          </svg>
+          <ul>
+            <li>Juin: Entretien et d&#xe9;sherbage des cultures</li>
+            <li>Juillet: Irrigation et r&#xe9;colte des l&#xe9;gumes d&apos;&#xe9;t&#xe9;</li>
+            <li>Ao&#xfb;t: R&#xe9;colte des c&#xe9;r&#xe9;ales et pr&#xe9;paration des sols</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="season autumn">
+        <h4>Automne (Septembre - Novembre)</h4>
+        <div class="crop-item">
+          <svg class="season-icon" viewBox="0 0 24 24">
+            <path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/>
+          </svg>
+          <ul>
+            <li>Septembre: R&#xe9;colte des fruits et l&#xe9;gumes d&apos;automne</li>
+            <li>Octobre: Semis des cultures d&apos;hiver</li>
+            <li>Novembre: Protection des cultures contre le froid</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="season winter">
+        <h4>Hiver (D&#xe9;cembre - F&#xe9;vrier)</h4>
+        <div class="crop-item">
+          <svg class="season-icon" viewBox="0 0 24 24">
+            <path d="M20.79,13.95L18.46,14.57L16.46,13.44V10.56L18.46,9.43L20.79,10.05L21.31,8.12L19.54,7.65L20,5.88L18.07,5.36L17.45,7.69L15.45,8.82L13,7.38V5.12L14.71,3.41L13.29,2L12,3.29L10.71,2L9.29,3.41L11,5.12V7.38L8.55,8.82L6.55,7.69L5.93,5.36L4,5.88L4.47,7.65L2.7,8.12L3.22,10.05L5.55,9.43L7.55,10.56V13.45L5.55,14.58L3.22,13.96L2.7,15.89L4.47,16.36L4,18.12L5.93,18.64L6.55,16.31L8.55,15.18L11,16.62V18.88L9.29,20.59L10.71,22L12,20.71L13.29,22L14.7,20.59L13,18.88V16.62L15.45,15.18L17.45,16.31L18.07,18.64L20,18.12L19.53,16.35L21.3,15.88L20.79,13.95M9.55,10.56L12,9.11L14.45,10.56V13.44L12,14.89L9.55,13.44V10.56Z"/>
+          </svg>
+          <ul>
+            <li>D&#xe9;cembre: Entretien du mat&#xe9;riel et planification</li>
+            <li>Janvier: Surveillance des cultures d&apos;hiver</li>
+            <li>F&#xe9;vrier: Pr&#xe9;paration des semis pr&#xe9;coces</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="advice" class="page-content">
+  <h2>Conseils Agricoles</h2>
+  
+  <div class="advice-card">
+    <h3>Pr&#xe9;paration du Sol</h3>
+    <div class="advice-content">
+      <div class="advice-text">
+        <p>Une bonne pr&#xe9;paration du sol est essentielle pour obtenir des cultures saines et productives. Voici les &#xe9;tapes cl&#xe9;s :</p>
+        
+        <div class="advice-steps">
+          <h4>&#xc9;tapes d&#xe9;taill&#xe9;es:</h4>
+          <ol>
+            <li><strong>Labour profond (25-30cm)</strong>
+              <br>Permet d&apos;a&#xe9;rer le sol et d&apos;enfouir les r&#xe9;sidus de culture
+            </li>
+            <li><strong>Analyse du pH</strong>
+              <br>Le pH id&#xe9;al se situe entre 6.0 et 7.0 pour la plupart des cultures
+              <br>Utilisez de la chaux pour augmenter le pH si n&#xe9;cessaire
+            </li>
+            <li><strong>Addition de compost</strong>
+              <br>Incorporez 2-3 kg/m&#xb2; de compost organique
+              <br>Am&#xe9;liore la structure du sol et apporte des nutriments
+            </li>
+          </ol>
+        </div>
+        
+        <div class="advice-tips">
+          <h4>Conseils suppl&#xe9;mentaires:</h4>
+          <ul>
+            <li>&#xc9;vitez de travailler un sol trop humide</li>
+            <li>Alternez les cultures pour pr&#xe9;server la fertilit&#xe9;</li>
+            <li>Maintenez une couverture v&#xe9;g&#xe9;tale en hiver</li>
+          </ul>
+        </div>
+      </div>
+      
+      <svg class="advice-image" viewBox="0 0 100 100">
+        <rect x="0" y="70" width="100" height="30" fill="#8d6e63"/>
+        <rect x="0" y="40" width="100" height="30" fill="#a1887f"/>
+        <rect x="0" y="0" width="100" height="40" fill="#bcaaa4"/>
+        <circle cx="20" cy="20" r="3" fill="#1b5e20"/>
+        <circle cx="50" cy="25" r="3" fill="#1b5e20"/>
+        <circle cx="80" cy="15" r="3" fill="#1b5e20"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="advice-card">
+    <h3>Gestion de l&apos;Eau</h3>
+    <div class="advice-content">
+      <div class="advice-text">
+        <p>Une irrigation efficace est cruciale pour la r&#xe9;ussite des cultures. Voici les principes essentiels :</p>
+        
+        <div class="advice-steps">
+          <h4>Syst&#xe8;me de goutte-&#xe0;-goutte:</h4>
+          <ol>
+            <li><strong>Installation</strong>
+              <br>Placez les tuyaux le long des rangs de culture
+              <br>Espacez les goutteurs selon les besoins des plantes
+            </li>
+            <li><strong>Programmation</strong>
+              <br>Arrosage t&#xf4;t le matin (entre 5h et 7h)
+              <br>&#xc9;vitez l&apos;&#xe9;vaporation excessive
+            </li>
+            <li><strong>Surveillance</strong>
+              <br>V&#xe9;rifiez l&apos;humidit&#xe9; du sol r&#xe9;guli&#xe8;rement
+              <br>Utilisez un tensiom&#xe8;tre pour plus de pr&#xe9;cision
+            </li>
+          </ol>
+        </div>
+        
+        <div class="advice-tips">
+          <h4>Astuces d&apos;irrigation:</h4>
+          <ul>
+            <li>Paillez pour conserver l&apos;humidit&#xe9;</li>
+            <li>Adaptez l&apos;arrosage selon la m&#xe9;t&#xe9;o</li>
+            <li>V&#xe9;rifiez r&#xe9;guli&#xe8;rement les fuites</li>
+          </ul>
+        </div>
+      </div>
+      
+      <svg class="advice-image" viewBox="0 0 100 100">
+        <rect x="0" y="70" width="100" height="30" fill="#81d4fa"/>
+        <line x1="10" y1="20" x2="90" y2="20" stroke="#0288d1" stroke-width="2"/>
+        <circle cx="20" cy="20" r="2" fill="#01579b"/>
+        <circle cx="40" cy="20" r="2" fill="#01579b"/>
+        <circle cx="60" cy="20" r="2" fill="#01579b"/>
+        <circle cx="80" cy="20" r="2" fill="#01579b"/>
+        <path d="M20,20 V60" stroke="#90caf9" fill="none"/>
+        <path d="M40,20 V60" stroke="#90caf9" fill="none"/>
+        <path d="M60,20 V60" stroke="#90caf9" fill="none"/>
+        <path d="M80,20 V60" stroke="#90caf9" fill="none"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<div id="tools" class="page-content">
+  <h2>Outils Agricoles</h2>
+  
+  <div class="tool-grid">
+    <div class="tool-details">
+      <h3>Houes et B&#xea;ches</h3>
+      <div class="tool-image-wrapper">
+        <svg class="tool-image" viewBox="0 0 100 100">
+          <rect x="45" y="10" width="10" height="60" fill="#795548"/>
+          <path d="M20,60 H80 L50,90 Z" fill="#8d6e63"/>
+        </svg>
+      </div>
+      <p>Les houes et b&#xea;ches sont essentielles pour le travail manuel du sol.</p>
+      
+      <div class="tool-specs">
+        <h4>Types d&apos;outils:</h4>
+        <ul>
+          <li>Houe simple - Pour le d&#xe9;sherbage</li>
+          <li>B&#xea;che &#xe0; dents - Pour a&#xe9;rer le sol</li>
+          <li>Houe rotative - Pour le binage</li>
+        </ul>
+      </div>
+      
+      <div class="tool-usage">
+        <h4>Conseils d&apos;utilisation:</h4>
+        <ul>
+          <li>Maintenez les lames aff&#xfb;t&#xe9;es</li>
+          <li>Travaillez le sol quand il est l&#xe9;g&#xe8;rement humide</li>
+          <li>&#xc9;vitez les mouvements brusques</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tool-details">
+      <h3>Syst&#xe8;mes d&apos;Irrigation</h3>
+      <div class="tool-image-wrapper">
+        <svg class="tool-image" viewBox="0 0 100 100">
+          <rect x="10" y="40" width="80" height="5" fill="#2196f3"/>
+          <circle cx="30" cy="45" r="2" fill="#1976d2"/>
+          <circle cx="50" cy="45" r="2" fill="#1976d2"/>
+          <circle cx="70" cy="45" r="2" fill="#1976d2"/>
+          <path d="M30,47 C30,60 30,60 25,65" stroke="#90caf9" fill="none"/>
+          <path d="M50,47 C50,60 50,60 45,65" stroke="#90caf9" fill="none"/>
+          <path d="M70,47 C70,60 70,60 65,65" stroke="#90caf9" fill="none"/>
+        </svg>
+      </div>
+      <p>Un syst&#xe8;me d&apos;irrigation efficace est crucial pour la r&#xe9;ussite des cultures.</p>
+      
+      <div class="tool-specs">
+        <h4>Types de syst&#xe8;mes:</h4>
+        <ul>
+          <li>Goutte-&#xe0;-goutte - &#xc9;conome en eau</li>
+          <li>Aspersion - Pour grande surface</li>
+          <li>Micro-irrigation - Pour cultures d&#xe9;licates</li>
+        </ul>
+      </div>
+      
+      <div class="tool-usage">
+        <h4>Installation et entretien:</h4>
+        <ul>
+          <li>Planifiez le r&#xe9;seau selon vos cultures</li>
+          <li>Installez des filtres appropri&#xe9;s</li>
+          <li>V&#xe9;rifiez r&#xe9;guli&#xe8;rement les fuites</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="services" class="page-content">
+  <h2>Nos Services</h2>
+  
+  <div class="features" style="margin-top: 2rem;">
+    <div class="feature-card">
+      <svg class="tool-icon" viewBox="0 0 24 24">
+        <path d="M12,3.5C7.58,3.5 4,7.08 4,11.5C4,15.92 7.58,19.5 12,19.5C16.42,19.5 20,15.92 20,11.5C20,7.08 16.42,3.5 12,3.5M12,17.5C8.69,17.5 6,14.81 6,11.5C6,8.19 8.69,5.5 12,5.5C15.31,5.5 18,8.19 18,11.5C18,14.81 15.31,17.5 12,17.5M12,9.5C10.34,9.5 9,10.84 9,12.5C9,14.16 10.34,15.5 12,15.5C13.66,15.5 15,14.16 15,12.5C15,10.84 13.66,9.5 12,9.5"/>
+      </svg>
+      <h3>Consultation Agricole</h3>
+      <p>Conseils personnalis&#xe9;s pour optimiser votre production</p>
+      <ul class="service-details">
+        <li>Analyse de sol</li>
+        <li>Planification des cultures</li>
+        <li>Gestion des parasites</li>
+      </ul>
+    </div>
+
+    <div class="feature-card">
+      <svg class="tool-icon" viewBox="0 0 24 24">
+        <path d="M5,8C5.56,8 6.08,8.15 6.53,8.42C6.38,9.85 6.8,11.27 7.66,12.38C7.16,13.34 6.16,14 5,14A3,3 0 0,1 2,11A3,3 0 0,1 5,8M19,8A3,3 0 0,1 22,11A3,3 0 0,1 19,14C17.84,14 16.84,13.34 16.34,12.38C17.2,11.27 17.62,9.85 17.47,8.42C17.92,8.15 18.44,8 19,8M5.5,18.25C5.5,16.18 8.41,14.5 12,14.5C15.59,14.5 18.5,16.18 18.5,18.25V20H5.5V18.25M0,20V18.5C0,17.11 1.89,15.94 4.45,15.6C3.86,16.28 3.5,17.22 3.5,18.25V20H0M24,20H20.5V18.25C20.5,17.22 20.14,16.28 19.55,15.6C22.11,15.94 24,17.11 24,18.5V20Z"/>
+      </svg>
+      <h3>Formation</h3>
+      <p>Programmes de formation pour agriculteurs</p>
+      <ul class="service-details">
+        <li>Techniques modernes</li>
+        <li>Agriculture durable</li>
+        <li>Gestion d&apos;exploitation</li>
+      </ul>
+    </div>
+
+    <div class="feature-card">
+      <svg class="tool-icon" viewBox="0 0 24 24">
+        <path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/>
+      </svg>
+      <h3>Support Technique</h3>
+      <p>Assistance pour vos &#xe9;quipements agricoles</p>
+      <ul class="service-details">
+        <li>Maintenance pr&#xe9;ventive</li>
+        <li>R&#xe9;paration</li>
+        <li>Installation syst&#xe8;mes</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div id="contact" class="page-content">
+  <h2>Contactez-nous</h2>
+  
+  <div style="max-width: 800px; margin: 0 auto; padding: 2rem;">
+    <div style="margin-bottom: 2rem; text-align: center;">
+      <h3>Nous sommes l&#xe0; pour vous aider</h3>
+      <p>Pour toute question concernant vos cultures, nos conseils ou nos services, n&apos;h&#xe9;sitez pas &#xe0; nous contacter.</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+      <div style="background: #e8f5e9; padding: 1.5rem; border-radius: 8px;">
+        <h4>Nos coordonn&#xe9;es</h4>
+        <p><strong>Email:</strong> <a href="mailto:kygermain01@gmail.com">kygermain01@gmail.com</a></p>
+        <p><strong>Horaires:</strong> Lundi - Vendredi, 8h - 18h</p>
+        <p><strong>Assistance technique:</strong> Disponible 7j/7</p>
+      </div>
+      
+      <div style="background: #e8f5e9; padding: 1.5rem; border-radius: 8px;">
+        <h4>Services disponibles</h4>
+        <ul style="list-style: none; padding: 0;">
+          <li>&#x2713; Conseils agricoles personnalis&#xe9;s</li>
+          <li>&#x2713; Support technique pour l&apos;irrigation</li>
+          <li>&#x2713; Planification des cultures</li>
+          <li>&#x2713; Formation aux nouvelles techniques</li>
+        </ul>
+      </div>
+    </div>
+
+    <form class="contact-form" onsubmit="handleContact(event)" style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+      <h3 style="margin-top: 0;">Envoyez-nous un message</h3>
+      
+      <div style="margin-bottom: 1rem;">
+        <label for="name">Nom complet *</label>
+        <input type="text" id="name" placeholder="Votre nom" required style="width: 100%; padding: 0.8rem;">
+      </div>
+      
+      <div style="margin-bottom: 1rem;">
+        <label for="email">Email *</label>
+        <input type="email" id="email" placeholder="Votre email" required style="width: 100%; padding: 0.8rem;">
+      </div>
+      
+      <div style="margin-bottom: 1rem;">
+        <label for="subject">Sujet</label>
+        <select id="subject" style="width: 100%; padding: 0.8rem;">
+          <option value="conseil">Demande de conseil</option>
+          <option value="technique">Support technique</option>
+          <option value="formation">Formation</option>
+          <option value="autre">Autre</option>
+        </select>
+      </div>
+      
+      <div style="margin-bottom: 1rem;">
+        <label for="message">Message *</label>
+        <textarea id="message" placeholder="D&#xe9;taillez votre demande..." rows="5" required style="width: 100%; padding: 0.8rem;"></textarea>
+      </div>
+      
+      <button type="submit" style="background: var(--primary); color: white; border: none; padding: 1rem 2rem; border-radius: 4px; cursor: pointer; width: 100%;">
+        Envoyer le message
+      </button>
+    </form>
+  </div>
+</div>
+
+<footer>
+  <p> 2024 AgriAssist - Votre partenaire pour une agriculture moderne et durable</p>
+  <p>Contactez-nous : <a href="mailto:kygermain01@gmail.com" style="color: white;">kygermain01@gmail.com</a></p>
+</footer>
+
+<script>function generateCalendar() {
+  const months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+  const currentMonth = new Date().getMonth();
+  let calendarHTML = `
+    <h3>${months[currentMonth]}</h3>
+    <div class="calendar-details">
+      <div class="calendar-section">
+        <h4>Planning du mois</h4>
+        <ul class="calendar-list">
+  `;
+  const activities = {
+    0: {
+      tasks: ['Préparation du sol', 'Maintenance des outils', 'Planification des semis', 'Protection contre le gel'],
+      crops: ['Vérification des cultures d\'hiver', 'Préparation des serres'],
+      status: 'Période de planification et maintenance'
+    },
+    1: {
+      tasks: ['Semis précoces', 'Taille des arbres fruitiers', 'Préparation des parcelles', 'Fertilisation de base'],
+      crops: ['Semis sous serre', 'Plantation d\'arbres fruitiers'],
+      status: 'Début des activités de printemps'
+    },
+    2: {
+      tasks: ['Semis principaux', 'Fertilisation', 'Labour des terres', 'Installation irrigation'],
+      crops: ['Carottes', 'Pommes de terre précoces', 'Oignons'],
+      status: 'Pleine activité de semis'
+    },
+    3: {
+      tasks: ['Désherbage', 'Irrigation', 'Protection des semis', 'Surveillance ravageurs'],
+      crops: ['Tomates', 'Haricots', 'Maïs précoce'],
+      status: 'Croissance active des cultures'
+    },
+    4: {
+      tasks: ['Surveillance des cultures', 'Traitements préventifs', 'Tuteurage', 'Fertilisation'],
+      crops: ['Salades', 'Radis', 'Navets'],
+      status: 'Développement des cultures printanières'
+    },
+    5: {
+      tasks: ['Récoltes précoces', 'Irrigation intensive', 'Protection solaire', 'Désherbage'],
+      crops: ['Petits pois', 'Fraises', 'Épinards'],
+      status: 'Début des récoltes'
+    },
+    6: {
+      tasks: ['Récoltes principales', 'Protection solaire', 'Surveillance sanitaire', 'Paillage'],
+      crops: ['Tomates', 'Courgettes', 'Concombres'],
+      status: 'Pic de production'
+    },
+    7: {
+      tasks: ['Récoltes tardives', 'Stockage', 'Préparation conserves', 'Irrigation'],
+      crops: ['Melons', 'Aubergines', 'Poivrons'],
+      status: 'Récoltes principales'
+    },
+    8: {
+      tasks: ['Préparation post-récolte', 'Analyse des sols', 'Nettoyage parcelles', 'Compostage'],
+      crops: ['Courges', 'Choux', 'Pommes de terre tardives'],
+      status: 'Transition automne'
+    },
+    9: {
+      tasks: ['Semis d\'automne', 'Couverture des sols', 'Récolte fruits', 'Protection gel'],
+      crops: ['Épinards d\'hiver', 'Mâche', 'Poireaux'],
+      status: 'Préparation hiver'
+    },
+    10: {
+      tasks: ['Protection contre le froid', 'Maintenance hivernale', 'Paillage', 'Drainage'],
+      crops: ['Choux d\'hiver', 'Céleris', 'Carottes tardives'],
+      status: 'Installation période hivernale'
+    },
+    11: {
+      tasks: ['Planification', 'Bilan annuel', 'Entretien matériel', 'Commande semences'],
+      crops: ['Cultures sous serre', 'Protection cultures d\'hiver'],
+      status: 'Bilan et planification'
+    }
+  };
+  activities[currentMonth].tasks.forEach(task => {
+    calendarHTML += `
+      <li class="calendar-item">
+        <span class="task-icon">📋</span>
+        ${task}
+      </li>`;
+  });
+  calendarHTML += `
+      </ul>
+    </div>
+    <div class="calendar-section">
+      <h4>Cultures en cours</h4>
+      <ul class="calendar-list">
+  `;
+  activities[currentMonth].crops.forEach(crop => {
+    calendarHTML += `
+      <li class="calendar-item">
+        <span class="crop-icon">🌱</span>
+        ${crop}
+      </li>`;
+  });
+  calendarHTML += `
+      </ul>
+    </div>
+    <div class="calendar-section">
+      <h4>Bilan du mois</h4>
+      <div class="status-box">
+        <span class="status-icon">📊</span>
+        <p>${activities[currentMonth].status}</p>
+      </div>
+    </div>
+  </div>`;
+  document.getElementById('calendar-content').innerHTML = calendarHTML;
+}
+function updateWeather() {
+  const weather = {
+    temp: Math.round(Math.random() * 15 + 15),
+    humidity: Math.round(Math.random() * 30 + 50),
+    wind: Math.round(Math.random() * 20 + 5)
+  };
+  document.getElementById('weather-content').innerHTML = `
+    <p>Température: ${weather.temp}°C</p>
+    <p>Humidité: ${weather.humidity}%</p>
+    <p>Vent: ${weather.wind} km/h</p>
+  `;
+}
+function showSection(sectionId) {
+  document.querySelectorAll('.page-content').forEach(section => {
+    section.classList.remove('active');
+  });
+  document.getElementById(sectionId).classList.add('active');
+}
+function handleContact(event) {
+  event.preventDefault();
+  const form = event.target;
+  const name = form.querySelector('#name').value;
+  const email = form.querySelector('#email').value;
+  const subject = form.querySelector('#subject').value;
+  const message = form.querySelector('#message').value;
+  console.log('Form submitted:', {
+    name,
+    email,
+    subject,
+    message
+  });
+  alert('Merci pour votre message ! Nous vous répondrons dans les plus brefs délais.');
+  form.reset();
+}
+document.addEventListener('DOMContentLoaded', () => {
+  generateCalendar();
+  updateWeather();
+  setInterval(updateWeather, 1800000);
+  showSection('home');
+});</script>
+
+</body></html>
